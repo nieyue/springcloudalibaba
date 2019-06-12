@@ -1,0 +1,55 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: nacos-zuul
+  session:
+    store-type: redis
+  redis:
+    host: 127.0.0.1
+    password: liliu
+    port: 6379
+    database: 1
+    timeout: 3000
+    lettuce:
+      pool:
+        min-idle: 100
+        max-idle: 300
+        max-active: 800
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+#    gateway:
+#      discovery:
+#        locator:
+#          enabled: true
+#      enabled: true
+#    # Add your routes here.
+#    - id: nacos-provider
+#      uri: https://www.aliyun.com/
+#      predicates:
+#      - Path=/nacos-provider/**
+#    - id: baidu
+#      uri: http://www.baidu.com
+#      predicates:
+#      - Path=/baidu/**
+#      filters:
+#      - RewritePath=/baidu/(?<segment>.*), /$\{segment}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+zuul:
+  #全局header过滤，保障session cookie
+  sensitive-headers:
+  #sensitive-headers: "*"
+  routes:
+    ribbon:
+      path: /nacos-customer/**
+      serviceId: nacos-customer
+    feign:
+      path: /nacos-provider/**
+      serviceId: nacos-provider
