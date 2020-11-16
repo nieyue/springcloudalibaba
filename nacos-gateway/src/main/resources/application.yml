@@ -1,0 +1,46 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: nacos-gateway
+  session:
+    store-type: redis
+  redis:
+    host: 127.0.0.1
+    password: liliu
+    port: 6379
+    database: 1
+    timeout: 3000
+    lettuce:
+      pool:
+        min-idle: 100
+        max-idle: 300
+        max-active: 800
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 39.98.171.71:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      enabled: true
+    # Add your routes here.
+      routes:
+      - id: nacos-provider
+        uri: lb://nacos-provider
+        predicates:
+        #- Path=/nacos-provider/**
+        - Path=/**
+      - id: baidu
+        uri: http://www.baidu.com
+        predicates:
+        - Path=/baidu/**
+        filters:
+        - RewritePath=/baidu/(?<segment>.*), /$\{segment}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
