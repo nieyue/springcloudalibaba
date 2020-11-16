@@ -30,14 +30,13 @@ spring:
       - id: nacos-provider
         uri: lb://nacos-provider
         predicates:
-        #- Path=/nacos-provider/**
         - Path=/**
-      - id: baidu
-        uri: http://www.baidu.com
-        predicates:
-        - Path=/baidu/**
-        filters:
-        - RewritePath=/baidu/(?<segment>.*), /$\{segment}
+#      - id: baidu
+#        uri: http://www.baidu.com
+#        predicates:
+#        - Path=/baidu/**
+#        filters:
+#        - RewritePath=/baidu/(?<segment>.*), /$\{segment}
 
 management:
   endpoints:
