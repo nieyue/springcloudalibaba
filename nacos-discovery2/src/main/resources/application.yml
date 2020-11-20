@@ -1,0 +1,33 @@
+server:
+  port: 8082
+  #spring.application.name=nacos-customer
+spring:
+  application:
+    name: nacos-provider
+  session:
+    store-type: redis
+  redis:
+    host: 127.0.0.1
+    password: liliu
+    port: 6379
+    database: 1
+    timeout: 3000
+    jedis:
+      pool:
+        min-idle: 100
+        max-idle: 300
+        max-active: 800
+    lettuce:
+      pool:
+        min-idle: 100
+        max-idle: 300
+        max-active: 800
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 39.98.171.71:8848
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

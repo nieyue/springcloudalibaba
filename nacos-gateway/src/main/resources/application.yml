@@ -1,5 +1,12 @@
 server:
   port: 9001
+  servlet:
+    session:
+      timeout: 604800 #7天
+      #timeout: 10000
+      cookie:
+        name: SESSION
+        #domain: ${myPugin.mianDomain}
 spring:
   application:
     name: nacos-gateway
@@ -11,6 +18,11 @@ spring:
     port: 6379
     database: 1
     timeout: 3000
+    jedis:
+      pool:
+        min-idle: 100
+        max-idle: 300
+        max-active: 800
     lettuce:
       pool:
         min-idle: 100
